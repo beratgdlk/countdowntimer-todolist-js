@@ -70,10 +70,10 @@ function countdownComplete() {
     
     // Popup'ı göster
     Swal.fire({
-        title: 'Süre Doldu!',
-        text: 'Geri sayım tamamlandı.',
+        title: 'Deadline Expired!',
+        text: 'The countdown is complete.',
         icon: 'info',
-        confirmButtonText: 'Tamam'
+        confirmButtonText: 'Okay'
     }).then((result) => {
         if (result.isConfirmed) {
             // Popup kapandıktan sonra tekrar ses çal
