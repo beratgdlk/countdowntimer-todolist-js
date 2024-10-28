@@ -1,22 +1,32 @@
 let timeLeft = 0;
-let timerInterval;
-const alarmSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+let timerInterval = null;
 
+// Timer Functions
 function startTimer() {
-    // Don't start a new timer if one is already running
     if (timerInterval) return;
     
-    // If time is 0 or not set, get new value from input
-    if (timeLeft === 0) {
-        const minutes = parseInt(document.getElementById('minutes').value);
-        if (isNaN(minutes) || minutes <= 0) {
-            alert('Please enter a valid time!');
-            return;
-        }
-        timeLeft = minutes * 60;
+    const minutes = parseInt(document.getElementById('minutes').value) || 0;
+    const seconds = parseInt(document.getElementById('seconds').value) || 0;
+    
+    if (minutes === 0 && seconds === 0) {
+        alert('Please enter a valid time!');
+        return;
     }
     
+    timeLeft = (minutes * 60) + seconds;
     timerInterval = setInterval(countdown, 1000);
+}
+
+function countdown() {
+    if (timeLeft <= 0) {
+        stopTimer();
+        playAlarm();
+        showCompletionAlert();
+        return;
+    }
+    
+    timeLeft--;
+    updateDisplay();
 }
 
 function stopTimer() {
@@ -29,16 +39,7 @@ function resetTimer() {
     timeLeft = 0;
     updateDisplay();
     document.getElementById('minutes').value = '';
-}
-
-function countdown() {
-    if (timeLeft > 0) {
-        timeLeft--;
-        updateDisplay();
-    } else {
-        stopTimer();
-        timeCompleted();
-    }
+    document.getElementById('seconds').value = '';
 }
 
 function updateDisplay() {
@@ -48,66 +49,58 @@ function updateDisplay() {
         `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
-function timeCompleted() {
-    // Önce alarmı başlat
-    playAlarmMultipleTimes(3); // 3 kez çalacak
-    
-    // Tarayıcı penceresini öne getir
-    focusBrowser();
-    
-    // Son olarak pop-up göster
+function playAlarm() {
+    const alarm = document.getElementById('alarmSound');
+    alarm.play();
+}
+
+function showCompletionAlert() {
     setTimeout(() => {
-        alert('Time completed!');
-    }, 500); // Pop-up'ı biraz geciktir ki ses başlayabilsin
+        alert('Time is up!');
+    }, 50);
 }
 
-function focusBrowser() {
-    try {
-        window.focus();
-        
-        if ("Notification" in window && Notification.permission === "granted") {
-            new Notification("Time Completed!", {
-                body: "Countdown has finished!"
-            });
-        }
-        
-        window.moveTo(0, 0);
-        window.resizeTo(screen.width, screen.height);
-    } catch (e) {
-        console.log("Window focus failed:", e);
-    }
-}
-
-function playAlarmMultipleTimes(times) {
-    let playCount = 0;
+// Todo List Functions
+function addToDo() {
+    const input = document.getElementById('toDoInput');
+    const text = input.value.trim();
     
-    // Yeni bir ses nesnesi oluştur
-    const playSound = () => {
-        const sound = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
-        
-        sound.addEventListener('ended', () => {
-            playCount++;
-            if (playCount < times) {
-                // Ses bittiğinde ve hedef sayıya ulaşılmadıysa tekrar çal
-                setTimeout(() => {
-                    playSound();
-                }, 500); // Her çalma arasında 500ms bekle
-            }
-        });
-
-        sound.play().catch(error => {
-            console.log("Error playing sound:", error);
-        });
+    if (text === '') return;
+    
+    const li = document.createElement('li');
+    
+    // Checkbox
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.addEventListener('change', function() {
+        li.classList.toggle('completed', this.checked);
+    });
+    
+    // Task text
+    const taskText = document.createElement('span');
+    taskText.className = 'task-text';
+    taskText.textContent = text;
+    
+    // Delete button
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'delete-btn';
+    deleteBtn.innerHTML = '<i class="fas fa-trash"></i>';
+    deleteBtn.onclick = function() {
+        li.remove();
     };
-
-    // İlk sesi başlat
-    playSound();
+    
+    // Append elements
+    li.appendChild(checkbox);
+    li.appendChild(taskText);
+    li.appendChild(deleteBtn);
+    
+    document.getElementById('toDoList').appendChild(li);
+    input.value = '';
 }
 
-// Request notification permission when page loads
-if ("Notification" in window) {
-    Notification.requestPermission();
-}
-
-// Update display on initial load
-updateDisplay();
+// Add task with Enter key
+document.getElementById('toDoInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        addToDo();
+    }
+});

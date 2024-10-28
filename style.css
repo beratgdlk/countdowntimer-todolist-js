@@ -5,71 +5,161 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background-color: #1e1c1c;
+    background-color: #2e2f31;
 }
 
 .container {
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.87);
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-.timer {
-    font-size: 4rem;
-    font-weight: bold;
-    margin: 1rem 0;
-    color: #ffffff;
-}
-
-.controls {
     display: flex;
-    flex-direction: column;
-    gap: 10px;
+    gap: 2rem;
+    padding: 2rem;
+    max-width: 1200px;
+    width: 100%;
 }
 
-input {
-    padding: 10px;
-    font-size: 1rem;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    width: 200px;
+.box {
+    flex: 1;
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
     text-align: center;
+}
+
+/* Timer Box Styles */
+.timer {
+    font-size: 3.5rem;
+    font-weight: bold;
+    text-align: center;
+    color: #2c3e50;
+    margin: 1rem 0;
+}
+
+.input-group {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+
+.button-group {
+    display: flex;
+    gap: 0.5rem;
+    flex-direction: column;
 }
 
 button {
-    padding: 10px 20px;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
-    border: none;
-    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+#startBtn {
     background-color: #4CAF50;
     color: white;
-    transition: background-color 0.3s;
+}
+
+#pauseBtn {
+    background-color: #ff9800;
+    color: white;
+}
+
+#resetBtn {
+    background-color: #f44336;
+    color: white;
 }
 
 button:hover {
-    background-color: #45a049;
+    opacity: 0.9;
+    transform: scale(0.98);
 }
 
-button:nth-child(3) {
-    background-color: #ff8800;
+/* Todo Box Styles */
+.todo-input-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
 }
 
-button:nth-child(3):hover {
-    background-color: #ce750f;
+#toDoInput {
+    flex: 1;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
 }
 
-button:nth-child(4) {
-    background-color: #ff0000;
+.todo-input-group button {
+    background-color: #2196F3;
+    color: white;
+    padding: 0.8rem 1.5rem;
 }
 
-button:nth-child(4):hover {
-    background-color: #bd0000;
+#toDoList {
+    list-style: none;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+#toDoList li {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+#toDoList li:hover {
+    background-color: #e9ecef;
+}
+
+#toDoList li input[type="checkbox"] {
+    margin-right: 1rem;
+    width: 18px;
+    height: 18px;
+}
+
+#toDoList li.completed {
+    text-decoration: line-through;
+    opacity: 0.7;
+}
+
+.delete-btn {
+    margin-left: auto;
+    background-color: #dc3545;
+    color: white;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.delete-btn:hover {
+    background-color: #c82333;
+}
+
+.task-text {
+    flex: 1;
+    margin: 0 1rem;
 }

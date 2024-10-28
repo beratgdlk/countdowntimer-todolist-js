@@ -3,20 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown Timer</title>
+    <title>Countdown Timer & To-Do List</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
-        <div class="timer" id="timer">00:00</div>
-        <div class="controls">
-            <input type="number" id="minutes" placeholder="Enter minutes" min="0">
-            <button onclick="startTimer()">Start</button>
-            <button onclick="stopTimer()">Stop</button>
-            <button onclick="resetTimer()">Reset</button>
+        <!-- Countdown Timer Card -->
+        <div class="box timer-box">
+            <h2>Countdown Timer</h2>
+            <div class="timer" id="timer">00:00</div>
+            <div class="input-group">
+                <input type="number" id="minutes" min="0" placeholder="Minutes">
+                <input type="number" id="seconds" min="0" max="59" placeholder="Seconds">
+            </div>
+            <div class="button-group">
+                <button id="startBtn" onclick="startTimer()">Start</button>
+                <button id="pauseBtn" onclick="stopTimer()">Pause</button>
+                <button id="resetBtn" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+
+        <!-- To-Do List Card -->
+        <div class="box todo-box">
+            <h2>To-Do List</h2>
+            <div class="todo-input-group">
+                <input type="text" id="toDoInput" placeholder="Add new task...">
+                <button onclick="addToDo()">Add</button>
+            </div>
+            <ul id="toDoList"></ul>
         </div>
     </div>
-
+    
+    <!-- Audio element for alarm -->
+    <audio id="alarmSound" src="https://assets.mixkit.co/sfx/preview/mixkit-alarm-digital-clock-beep-989.mp3"></audio>
+    
     <script src="script.js"></script>
 </body>
 </html>
