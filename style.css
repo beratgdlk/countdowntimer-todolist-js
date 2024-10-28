@@ -1,109 +1,75 @@
-/* Genel body ayarları */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 body {
+    font-family: Arial, sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #121212;
-    margin: 0;
-    font-family: 'Arial', sans-serif;
+    min-height: 100vh;
+    background-color: #1e1c1c;
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.87);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.timer {
+    font-size: 4rem;
+    font-weight: bold;
+    margin: 1rem 0;
     color: #ffffff;
 }
 
-/* Container stil */
-.container {
-    text-align: center;
-    background-color: #1e1e1e;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-}
-
-/* Başlık stil */
-h1 {
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-
-/* Geri sayım kutusunun stili */
-#countdown {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    margin-bottom: 20px;
-}
-
-.time {
-    background-color: #333;
-    padding: 20px;
-    border-radius: 8px;
-    min-width: 80px;
-    text-align: center;
-}
-
-.time span {
-    font-size: 2rem;
-    display: block;
-    font-weight: bold;
-    margin-bottom: 5px;
-}
-
-.time p {
-    font-size: 1rem;
-    margin: 0;
-    color: #bbb;
-}
-
-/* Kontrol bölümünün stili */
 .controls {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     gap: 10px;
-    margin-bottom: 20px;
 }
 
-.controls input {
+input {
     padding: 10px;
-    border: none;
+    font-size: 1rem;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    width: 60px;
-    background-color: #222;
-    color: #fff;
+    width: 200px;
     text-align: center;
 }
 
-.controls button {
+button {
     padding: 10px 20px;
-    border: none;
-    background-color: #555;
-    color: #fff;
+    font-size: 1rem;
     cursor: pointer;
+    border: none;
     border-radius: 5px;
+    background-color: #4CAF50;
+    color: white;
     transition: background-color 0.3s;
 }
 
-.controls button:hover {
-    background-color: #777;
+button:hover {
+    background-color: #45a049;
 }
 
-/* Butonların stili */
-.buttons {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+button:nth-child(3) {
+    background-color: #ff8800;
 }
 
-.buttons button {
-    padding: 10px 20px;
-    border: none;
-    background-color: #555;
-    color: #fff;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+button:nth-child(3):hover {
+    background-color: #ce750f;
 }
 
-.buttons button:hover {
-    background-color: #777;
+button:nth-child(4) {
+    background-color: #ff0000;
 }
 
+button:nth-child(4):hover {
+    background-color: #bd0000;
+}

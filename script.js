@@ -1,68 +1,113 @@
-let interval;
-let isRunning = false;
-let remainingTime = 0;
+let timeLeft = 0;
+let timerInterval;
+const alarmSound = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
 
-// Geri sayımı başlatma ve durdurma fonksiyonu
-function toggleCountdown() {
-    if (isRunning) {
-        clearInterval(interval);
-        isRunning = false;
-        document.getElementById('startStopBtn').innerText = 'Start';
-    } else {
-        startCountdown();
-        isRunning = true;
-        document.getElementById('startStopBtn').innerText = 'Stop';
+function startTimer() {
+    // Don't start a new timer if one is already running
+    if (timerInterval) return;
+    
+    // If time is 0 or not set, get new value from input
+    if (timeLeft === 0) {
+        const minutes = parseInt(document.getElementById('minutes').value);
+        if (isNaN(minutes) || minutes <= 0) {
+            alert('Please enter a valid time!');
+            return;
+        }
+        timeLeft = minutes * 60;
     }
+    
+    timerInterval = setInterval(countdown, 1000);
 }
 
-// Geri sayımı başlatma fonksiyonu
-function startCountdown() {
-    interval = setInterval(countdown, 1000);
+function stopTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
 }
 
-// Geri sayımı resetleme fonksiyonu
-function resetCountdown() {
-    clearInterval(interval);
-    isRunning = false;
-    remainingTime = 0;
-    document.getElementById('startStopBtn').innerText = 'Başlat';
-    updateDisplay(0, 0, 0, 0);
+function resetTimer() {
+    stopTimer();
+    timeLeft = 0;
+    updateDisplay();
+    document.getElementById('minutes').value = '';
 }
 
-// Geri sayımı ayarlama fonksiyonu
-function setCountdown() {
-    const days = parseInt(document.getElementById('setDays').value) || 0;
-    const hours = parseInt(document.getElementById('setHours').value) || 0;
-    const minutes = parseInt(document.getElementById('setMinutes').value) || 0;
-    const seconds = parseInt(document.getElementById('setSeconds').value) || 0;
-
-    remainingTime = (days * 24 * 60 * 60) + (hours * 60 * 60) + (minutes * 60) + seconds;
-    updateDisplay(days, hours, minutes, seconds);
-}
-
-// Geri sayım fonksiyonu
 function countdown() {
-    if (remainingTime <= 0) {
-        clearInterval(interval);
-        isRunning = false;
-        document.getElementById('startStopBtn').innerText = 'Start';
-        return;
+    if (timeLeft > 0) {
+        timeLeft--;
+        updateDisplay();
+    } else {
+        stopTimer();
+        timeCompleted();
     }
-
-    remainingTime--;
-
-    const days = Math.floor(remainingTime / (24 * 60 * 60));
-    const hours = Math.floor((remainingTime % (24 * 60 * 60)) / (60 * 60));
-    const minutes = Math.floor((remainingTime % (60 * 60)) / 60);
-    const seconds = remainingTime % 60;
-
-    updateDisplay(days, hours, minutes, seconds);
 }
 
-// Ekrandaki değerleri güncelleme fonksiyonu
-function updateDisplay(days, hours, minutes, seconds) {
-    document.getElementById('days').innerText = days.toString().padStart(2, '0');
-    document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
-    document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
-    document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+function updateDisplay() {
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+    document.getElementById('timer').textContent = 
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
+
+function timeCompleted() {
+    // Önce alarmı başlat
+    playAlarmMultipleTimes(3); // 3 kez çalacak
+    
+    // Tarayıcı penceresini öne getir
+    focusBrowser();
+    
+    // Son olarak pop-up göster
+    setTimeout(() => {
+        alert('Time completed!');
+    }, 500); // Pop-up'ı biraz geciktir ki ses başlayabilsin
+}
+
+function focusBrowser() {
+    try {
+        window.focus();
+        
+        if ("Notification" in window && Notification.permission === "granted") {
+            new Notification("Time Completed!", {
+                body: "Countdown has finished!"
+            });
+        }
+        
+        window.moveTo(0, 0);
+        window.resizeTo(screen.width, screen.height);
+    } catch (e) {
+        console.log("Window focus failed:", e);
+    }
+}
+
+function playAlarmMultipleTimes(times) {
+    let playCount = 0;
+    
+    // Yeni bir ses nesnesi oluştur
+    const playSound = () => {
+        const sound = new Audio('https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3');
+        
+        sound.addEventListener('ended', () => {
+            playCount++;
+            if (playCount < times) {
+                // Ses bittiğinde ve hedef sayıya ulaşılmadıysa tekrar çal
+                setTimeout(() => {
+                    playSound();
+                }, 500); // Her çalma arasında 500ms bekle
+            }
+        });
+
+        sound.play().catch(error => {
+            console.log("Error playing sound:", error);
+        });
+    };
+
+    // İlk sesi başlat
+    playSound();
+}
+
+// Request notification permission when page loads
+if ("Notification" in window) {
+    Notification.requestPermission();
+}
+
+// Update display on initial load
+updateDisplay();
