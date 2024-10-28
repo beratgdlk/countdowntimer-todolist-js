@@ -9,30 +9,34 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
-    <div class="container">
-        <!-- Countdown Timer Card -->
-        <div class="box timer-box">
-            <h2>Countdown Timer</h2>
-            <div class="timer" id="timer">00:00</div>
-            <div class="input-group">
-                <input type="number" id="minutes" min="0" placeholder="Minutes">
-                <input type="number" id="seconds" min="0" max="59" placeholder="Seconds">
-            </div>
-            <div class="button-group">
-                <button id="startBtn" onclick="startTimer()">Start</button>
-                <button id="pauseBtn" onclick="stopTimer()">Pause</button>
-                <button id="resetBtn" onclick="resetTimer()">Reset</button>
+    <div class="main-container">
+        <div class="timer-container">
+            <!-- Countdown Timer Card -->
+            <div class="box timer-box">
+                <h2>Countdown Timer</h2>
+                <div class="timer" id="timer">00:00</div>
+                <div class="input-group">
+                    <input type="number" id="minutes" min="0" placeholder="Minutes">
+                    <input type="number" id="seconds" min="0" max="59" placeholder="Seconds">
+                </div>
+                <div class="button-group">
+                    <button id="startBtn" onclick="startTimer()">Start</button>
+                    <button id="pauseBtn" onclick="stopTimer()">Pause</button>
+                    <button id="resetBtn" onclick="resetTimer()">Reset</button>
+                </div>
             </div>
         </div>
-
-        <!-- To-Do List Card -->
-        <div class="box todo-box">
-            <h2>To-Do List</h2>
-            <div class="todo-input-group">
-                <input type="text" id="toDoInput" placeholder="Add new task...">
-                <button onclick="addToDo()">Add</button>
+        
+        <div class="todo-container">
+            <!-- To-Do List Card -->
+            <div class="box todo-box">
+                <h2>To-Do List</h2>
+                <div class="todo-input-group">
+                    <input type="text" id="toDoInput" placeholder="Add new task...">
+                    <button onclick="addToDo()">Add</button>
+                </div>
+                <ul id="toDoList"></ul>
             </div>
-            <ul id="toDoList"></ul>
         </div>
     </div>
     

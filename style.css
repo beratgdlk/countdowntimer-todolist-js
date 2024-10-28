@@ -18,24 +18,25 @@ body {
     background-attachment: fixed;
 }
 
-.container {
-    display: flex;
-    gap: 2rem;
-    padding: 2rem;
-    max-width: 1200px;
-    width: 100%;
+.container, .todo-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    margin: 20px;
 }
 
 .box {
     flex: 1;
-    background: rgb(69, 61, 153);
+    background: rgba(255, 255, 255, 0);
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-    color: #ffffffe0;
+    color: #000000e0;
     margin-bottom: 1.5rem;
     text-align: center;
 }
@@ -45,7 +46,7 @@ h2 {
     font-size: 3.5rem;
     font-weight: bold;
     text-align: center;
-    color: #f3f6f8;
+    color: #000000;
     margin: 1rem 0;
 }
 
@@ -58,7 +59,7 @@ h2 {
 input[type="number"] {
     width: 100%;
     padding: 0.8rem;
-    border: 1px solid #ddd;
+    border: 1px solid #ffffff;
     border-radius: 8px;
     font-size: 1rem;
 }
@@ -80,7 +81,7 @@ button {
 
 #startBtn {
     background-color: #4CAF50;
-    color: white;
+    color: rgb(255, 255, 255);
 }
 
 #pauseBtn {
@@ -153,7 +154,7 @@ button:hover {
 .delete-btn {
     margin-left: auto;
     background-color: #dc3545;
-    color: white;
+    color: rgb(0, 0, 0);
     padding: 0.4rem 0.8rem;
     border-radius: 4px;
     cursor: pointer;
@@ -167,4 +168,50 @@ button:hover {
 .task-text {
     flex: 1;
     margin: 0 1rem;
+}
+
+.timer-display, #toDoList li {
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    padding: 10px;
+}
+
+input[type="text"], input[type="number"] {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: rgb(0, 0, 0);
+}
+
+/* Ana container için flex yapısı */
+.main-container {
+    display: flex;
+    gap: 2rem;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    justify-content: center;
+}
+
+/* Timer ve Todo kutuları için ortak stiller */
+.timer-container, .todo-container {
+    flex: 1;
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    min-width: 300px;
+    max-width: 500px;
+}
+
+/* Responsive tasarım için */
+@media (max-width: 768px) {
+    .main-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .timer-container, .todo-container {
+        width: 100%;
+    }
 }
