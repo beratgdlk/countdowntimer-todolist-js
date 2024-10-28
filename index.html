@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown Timer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Countdown Timer</h1>
+        <!-- Geri Sayım Bölümü -->
+        <div id="countdown">
+            <div class="time">
+                <span id="days">00</span>
+                <p>Days</p>
+            </div>
+            <div class="time">
+                <span id="hours">00</span>
+                <p>Hours</p>
+            </div>
+            <div class="time">
+                <span id="minutes">00</span>
+                <p>Minutes</p>
+            </div>
+            <div class="time">
+                <span id="seconds">00</span>
+                <p>Seconds</p>
+            </div>
+        </div>
+
+        <!-- Süre Ayarlama -->
+        <div class="controls">
+            <input type="number" id="setDays" placeholder="Day" min="0">
+            <input type="number" id="setHours" placeholder="Hour" min="0" max="23">
+            <input type="number" id="setMinutes" placeholder="Minute" min="0" max="59">
+            <input type="number" id="setSeconds" placeholder="Second" min="0" max="59">
+            <button onclick="setCountdown()">Set Duration</button>
+        </div>
+
+        <!-- Butonlar -->
+        <div class="buttons">
+            <button id="startStopBtn" onclick="toggleCountdown()">Start</button>
+            <button onclick="resetCountdown()">Reset</button>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
