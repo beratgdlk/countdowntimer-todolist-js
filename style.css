@@ -10,7 +10,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #2e2f31;
+    background-color: #1d1f21;
+    background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .container {
@@ -23,14 +28,14 @@ body {
 
 .box {
     flex: 1;
-    background: white;
+    background: rgb(69, 61, 153);
     padding: 2rem;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 h2 {
-    color: #1a1a1a;
+    color: #ffffffe0;
     margin-bottom: 1.5rem;
     text-align: center;
 }
@@ -40,7 +45,7 @@ h2 {
     font-size: 3.5rem;
     font-weight: bold;
     text-align: center;
-    color: #2c3e50;
+    color: #f3f6f8;
     margin: 1rem 0;
 }
 
@@ -109,7 +114,7 @@ button:hover {
 }
 
 .todo-input-group button {
-    background-color: #2196F3;
+    background-color: #959509;
     color: white;
     padding: 0.8rem 1.5rem;
 }

@@ -20,8 +20,7 @@ function startTimer() {
 function countdown() {
     if (timeLeft <= 0) {
         stopTimer();
-        playAlarm();
-        showCompletionAlert();
+        countdownComplete();
         return;
     }
     
@@ -40,6 +39,11 @@ function resetTimer() {
     updateDisplay();
     document.getElementById('minutes').value = '';
     document.getElementById('seconds').value = '';
+    
+    // Sesi durdur
+    const audio = document.getElementById('alarmSound');
+    audio.pause();
+    audio.currentTime = 0;
 }
 
 function updateDisplay() {
@@ -49,15 +53,34 @@ function updateDisplay() {
         `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 }
 
+// Ses çalma fonksiyonu
 function playAlarm() {
-    const alarm = document.getElementById('alarmSound');
-    alarm.play();
+    const audio = document.getElementById('alarmSound');
+    audio.currentTime = 0; // Sesi baştan başlat
+    audio.play();
 }
 
-function showCompletionAlert() {
-    setTimeout(() => {
-        alert('Time is up!');
-    }, 50);
+// Geri sayım bittiğinde
+function countdownComplete() {
+    const audio = document.getElementById('alarmSound');
+    
+    // İlk sesi çal
+    audio.currentTime = 0;
+    audio.play();
+    
+    // Popup'ı göster
+    Swal.fire({
+        title: 'Süre Doldu!',
+        text: 'Geri sayım tamamlandı.',
+        icon: 'info',
+        confirmButtonText: 'Tamam'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Popup kapandıktan sonra tekrar ses çal
+            audio.currentTime = 0;
+            audio.play();
+        }
+    });
 }
 
 // Todo List Functions
