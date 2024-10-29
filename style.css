@@ -1,9 +1,11 @@
+/* Reset */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Base styles */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     min-height: 100vh;
@@ -11,42 +13,40 @@ body {
     justify-content: center;
     align-items: center;
     background-color: #1d1f21;
-    background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba');
+    background-image: url("https://images.unsplash.com/photo-1475274047050-1d0c0975c63e?q=80&w=2072&auto=format&fit=crop");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
 }
+/* Main Container */
+.main-container {
+    display: flex;
+    gap: 2rem;
+    padding: 20px;
+    width: 100%;
+    max-width: 1200px;
+    justify-content: center;
+}
 
-.container, .todo-container {
+/* Timer and Todo Containers */
+.timer-container, .todo-container {
+    flex: 1;
     background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(8px);
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    margin: 20px;
+    min-width: 300px;
+    max-width: 500px;
 }
 
-.box {
-    flex: 1;
-    background: rgba(255, 255, 255, 0);
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-h2 {
-    color: #000000e0;
-    margin-bottom: 1.5rem;
-    text-align: center;
-}
-
-/* Timer Box Styles */
+/* Timer Styles */
 .timer {
     font-size: 3.5rem;
     font-weight: bold;
     text-align: center;
-    color: #000000;
+    color: #ffffff;
     margin: 1rem 0;
 }
 
@@ -56,14 +56,7 @@ h2 {
     margin-bottom: 1rem;
 }
 
-input[type="number"] {
-    width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #ffffff;
-    border-radius: 8px;
-    font-size: 1rem;
-}
-
+/* Button Styles */
 .button-group {
     display: flex;
     gap: 0.5rem;
@@ -76,22 +69,7 @@ button {
     border-radius: 8px;
     font-size: 1rem;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.1s;
-}
-
-#startBtn {
-    background-color: #4CAF50;
-    color: rgb(255, 255, 255);
-}
-
-#pauseBtn {
-    background-color: #ff9800;
-    color: white;
-}
-
-#resetBtn {
-    background-color: #f44336;
-    color: white;
+    transition: all 0.3s;
 }
 
 button:hover {
@@ -99,25 +77,31 @@ button:hover {
     transform: scale(0.98);
 }
 
-/* Todo Box Styles */
+#startBtn { background-color: #4CAF50; color: white; }
+#pauseBtn { background-color: #ff9800; color: white; }
+#resetBtn { background-color: #f44336; color: white; }
+
+/* Todo List Styles */
 .todo-input-group {
     display: flex;
     gap: 0.5rem;
     margin-bottom: 1rem;
 }
 
-#toDoInput {
-    flex: 1;
-    padding: 0.8rem;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-}
-
 .todo-input-group button {
     background-color: #959509;
     color: white;
     padding: 0.8rem 1.5rem;
+}
+
+#toDoInput {
+    flex: 1;
+    padding: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: rgb(255, 255, 255);
 }
 
 #toDoList {
@@ -131,13 +115,13 @@ button:hover {
     align-items: center;
     padding: 1rem;
     margin-bottom: 0.5rem;
-    background-color: #f8f9fa;
+    background-color: rgba(255, 255, 255, 0.15);
     border-radius: 8px;
-    transition: background-color 0.3s;
 }
 
-#toDoList li:hover {
-    background-color: #e9ecef;
+#toDoList li.completed {
+    text-decoration: line-through;
+    opacity: 0.7;
 }
 
 #toDoList li input[type="checkbox"] {
@@ -146,15 +130,10 @@ button:hover {
     height: 18px;
 }
 
-#toDoList li.completed {
-    text-decoration: line-through;
-    opacity: 0.7;
-}
-
 .delete-btn {
     margin-left: auto;
     background-color: #dc3545;
-    color: rgb(0, 0, 0);
+    color: black;
     padding: 0.4rem 0.8rem;
     border-radius: 4px;
     cursor: pointer;
@@ -170,41 +149,25 @@ button:hover {
     margin: 0 1rem;
 }
 
-.timer-display, #toDoList li {
-    background-color: rgba(255, 255, 255, 0.15);
-    border-radius: 8px;
-    padding: 10px;
-}
-
-input[type="text"], input[type="number"] {
-    background-color: rgba(255, 255, 255, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    color: rgb(0, 0, 0);
-}
-
-/* Ana container için flex yapısı */
-.main-container {
-    display: flex;
-    gap: 2rem;
-    padding: 20px;
+/* Form Input Styles */
+input[type="number"] {
     width: 100%;
-    max-width: 1200px;
-    justify-content: center;
+    padding: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: rgb(255, 255, 255);
 }
 
-/* Timer ve Todo kutuları için ortak stiller */
-.timer-container, .todo-container {
-    flex: 1;
-    background-color: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 15px;
-    padding: 20px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    min-width: 300px;
-    max-width: 500px;
+/* Headings */
+h2 {
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
 
-/* Responsive tasarım için */
+/* Responsive Design */
 @media (max-width: 768px) {
     .main-container {
         flex-direction: column;

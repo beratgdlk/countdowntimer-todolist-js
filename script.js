@@ -64,9 +64,22 @@ function playAlarm() {
 function countdownComplete() {
     const audio = document.getElementById('alarmSound');
     
-    // İlk sesi çal
+    // Sesi en düşük seviyeden başlat
+    audio.volume = 0.1;
     audio.currentTime = 0;
     audio.play();
+    
+    let volumeLevel = 0.1;
+    const volumeInterval = setInterval(() => {
+        // Ses seviyesini kademeli olarak artır
+        volumeLevel += 0.1;
+        audio.volume = Math.min(volumeLevel, 1.0);
+        
+        // Maksimum ses seviyesine ulaşıldığında durdur
+        if (volumeLevel >= 1.0) {
+            clearInterval(volumeInterval);
+        }
+    }, 1000); // Her saniyede bir ses seviyesini artır
     
     // Popup'ı göster
     Swal.fire({
@@ -76,9 +89,21 @@ function countdownComplete() {
         confirmButtonText: 'Okay'
     }).then((result) => {
         if (result.isConfirmed) {
-            // Popup kapandıktan sonra tekrar ses çal
+            // Popup kapandıktan sonra sesi tekrar başlat
+            audio.volume = 0.1;
+            volumeLevel = 0.1;
             audio.currentTime = 0;
             audio.play();
+            
+            // Sesi tekrar kademeli olarak artır
+            const newVolumeInterval = setInterval(() => {
+                volumeLevel += 0.1;
+                audio.volume = Math.min(volumeLevel, 1.0);
+                
+                if (volumeLevel >= 1.0) {
+                    clearInterval(newVolumeInterval);
+                }
+            }, 1000);
         }
     });
 }
