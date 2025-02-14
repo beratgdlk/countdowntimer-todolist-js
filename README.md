@@ -1,5 +1,4 @@
-React again
-### Countdown Timer & To-Do List
+# Countdown Timer & To-Do List
 
 Welcome to the **Countdown Timer & To-Do List** project! This repository showcases a dynamic web application built using **HTML**, **CSS**, and **JavaScript**, providing an interactive countdown timer and a to-do list to help users stay organized and manage their time effectively.
 
